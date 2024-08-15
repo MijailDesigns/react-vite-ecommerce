@@ -1,5 +1,7 @@
+import Layout from "../../Components/Layout";
+
 function SingIn() {
-  return <div>SingIn</div>;
+  return <Layout>SingIn</Layout>;
 }
 
 export default SingIn;
