@@ -5,7 +5,7 @@ import Card from "../../Components/Card";
 function Home() {
   const apiUrl = "https://fakestoreapi.com/products";
   // const apiUrl2 = "https://api.escuelajs.co/api/v1/products";
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   useEffect(() => {
     fetch(`${apiUrl}`)
       .then((response) => response.json())

@@ -7,6 +7,7 @@ import NotFound from "../NotFound";
 import SingIn from "../Signin";
 import NavBar from "../../Components/NavBar/index";
 import "./App.css";
+import { ShoppingCardProvider } from "../../Context";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -22,10 +23,12 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-      <NavBar />
-    </BrowserRouter>
+    <ShoppingCardProvider>
+      <BrowserRouter>
+        <AppRoutes />
+        <NavBar />
+      </BrowserRouter>
+    </ShoppingCardProvider>
   );
 };
 
