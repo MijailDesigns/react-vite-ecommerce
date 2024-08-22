@@ -10,6 +10,13 @@ const Card = ({ data }) => {
     context.setProductToShow(productDetail);
   };
 
+  const addProductsToCart = (productData) => {
+    console.log(productData);
+    context.setCartProducts([...context.cartProducts, productData]);
+    context.setCount(context.count + 1);
+    console.log(context.cartProducts);
+  };
+
   return (
     <div
       className="bg-white cursor-pointer w-56 h-60 rounded-lg"
@@ -29,7 +36,7 @@ const Card = ({ data }) => {
           onClick={(e) => {
             // esto es para evitar la propagacion del evento del padre en la linea 16
             e.stopPropagation();
-            context.setCount(context.count + 1);
+            addProductsToCart(data);
           }}
         >
           <PlusIcon className="size-6 text-black" />
