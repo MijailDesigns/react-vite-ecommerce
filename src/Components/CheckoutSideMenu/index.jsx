@@ -2,6 +2,7 @@ import "./styles.css";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ShoppingCardContext } from "../../Context/index";
 import { useContext } from "react";
+import OrderCard from "../../Components/OrderCard";
 
 const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCardContext);
@@ -20,6 +21,17 @@ const CheckoutSideMenu = () => {
             }}
           />
         </div>
+      </div>
+
+      <div className="px-4">
+        {context.cartProducts.map((product) => (
+          <OrderCard
+            key={product.id}
+            title={product.title}
+            imageUrl={product.image}
+            price={product.price}
+          />
+        ))}
       </div>
     </aside>
   );
