@@ -8,13 +8,16 @@ const Card = ({ data }) => {
   const showProduct = (productDetail) => {
     context.openProductDetail();
     context.setProductToShow(productDetail);
+    context.closeCheckoutSideMenu();
   };
 
-  const addProductsToCart = (productData) => {
-    console.log(productData);
+  const addProductsToCart = (event, productData) => {
+    // esto es para evitar la propagacion del evento del padre en la linea de showProduct
+    event.stopPropagation();
     context.setCartProducts([...context.cartProducts, productData]);
     context.setCount(context.count + 1);
-    console.log(context.cartProducts);
+    context.openCheckoutSideMenu();
+    context.closeProductDetail();
   };
 
   return (
@@ -33,11 +36,7 @@ const Card = ({ data }) => {
         />
         <div
           className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full p-1 m-2"
-          onClick={(e) => {
-            // esto es para evitar la propagacion del evento del padre en la linea 16
-            e.stopPropagation();
-            addProductsToCart(data);
-          }}
+          onClick={(event) => addProductsToCart(event, data)}
         >
           <PlusIcon className="size-6 text-black" />
         </div>
