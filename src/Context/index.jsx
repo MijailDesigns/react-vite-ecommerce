@@ -20,6 +20,11 @@ export const ShoppingCardProvider = ({ children }) => {
   const [productToShow, setProductToShow] = useState({});
   // Shopping Cart - Add products to cart
   const [cartProducts, setCartProducts] = useState([]);
+  // Shopping Cart - Remove products from cart
+  const removeProduct = (id) => {
+    const newCartProducts = cartProducts.filter((product) => product.id !== id);
+    setCartProducts(newCartProducts);
+  };
 
   return (
     <ShoppingCardContext.Provider
@@ -37,6 +42,7 @@ export const ShoppingCardProvider = ({ children }) => {
         isCheckoutSideMenu,
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
+        removeProduct,
       }}
     >
       {children}
