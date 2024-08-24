@@ -23,7 +23,7 @@ const CheckoutSideMenu = () => {
         </div>
       </div>
 
-      <div className="px-4">
+      <div className="px-4 overflow-y-auto">
         {context.cartProducts.map((product) => (
           <OrderCard
             key={product.id}
