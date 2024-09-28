@@ -6,12 +6,13 @@ const OrderCard = (props) => {
   const { id, title, imageUrl, price, units } = props;
   const context = useContext(ShoppingCardContext);
 
+  const getIndex = (id) => {
+    return context.cartProducts.findIndex((product) => product.id === id);
+  };
+
   const addProductUnit = (id) => {
-    const index = context.cartProducts.findIndex(
-      (product) => product.id === id
-    );
     const products = [...context.cartProducts];
-    products[index].units++;
+    products[getIndex(id)].units++;
     context.setCartProducts(products);
   };
   const reduceProductUnit = (id) => {
@@ -19,11 +20,8 @@ const OrderCard = (props) => {
       context.removeProduct(id);
       return;
     }
-    const index = context.cartProducts.findIndex(
-      (product) => product.id === id
-    );
     const products = [...context.cartProducts];
-    products[index].units--;
+    products[getIndex(id)].units--;
     context.setCartProducts(products);
   };
   return (
@@ -41,14 +39,14 @@ const OrderCard = (props) => {
           <div className="flex items-center">
             <div
               className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
-              onClick={(event) => reduceProductUnit(id)}
+              onClick={() => reduceProductUnit(id)}
             >
               <MinusIcon className="size-4 text-black-500 cursor-pointer" />
             </div>
             <p>{units}</p>
             <div
               className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
-              onClick={(event) => addProductUnit(id)}
+              onClick={() => addProductUnit(id)}
             >
               <PlusIcon className="size-4 text-black-500 cursor-pointer" />
             </div>
