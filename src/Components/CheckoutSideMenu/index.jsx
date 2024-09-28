@@ -32,6 +32,7 @@ const CheckoutSideMenu = () => {
             title={product.title}
             imageUrl={product.image}
             price={product.price}
+            units={product.units}
           />
         ))}
       </div>
