@@ -14,8 +14,10 @@ const OrderCard = (props) => {
     const products = [...context.cartProducts];
     products[getIndex(id)].units++;
     context.setCartProducts(products);
+    context.setCount(context.count + 1);
   };
   const reduceProductUnit = (id) => {
+    context.setCount(context.count - 1);
     if (units === 1) {
       context.removeProduct(id);
       return;
