@@ -3,7 +3,7 @@ import { ShoppingCardContext } from "../../Context/index";
 import { XMarkIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
 const OrderCard = (props) => {
-  const { id, title, imageUrl, price, units } = props;
+  const { id, title, imageUrl, price, units, isShoppingCart } = props;
   const context = useContext(ShoppingCardContext);
 
   const getIndex = (id) => {
@@ -38,30 +38,36 @@ const OrderCard = (props) => {
         </figure>
         <div>
           <p className="text-sm font-light ">{title}</p>
-          <div className="flex items-center">
-            <div
-              className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
-              onClick={() => reduceProductUnit(id)}
-            >
-              <MinusIcon className="size-4 text-black-500 cursor-pointer" />
+          {isShoppingCart && (
+            <div className="flex items-center">
+              <div
+                className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
+                onClick={() => reduceProductUnit(id)}
+              >
+                {isShoppingCart && (
+                  <MinusIcon className="size-4 text-black-500 cursor-pointer" />
+                )}
+              </div>
+              <p>{units}</p>
+              <div
+                className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
+                onClick={() => addProductUnit(id)}
+              >
+                <PlusIcon className="size-4 text-black-500 cursor-pointer" />
+              </div>
             </div>
-            <p>{units}</p>
-            <div
-              className="flex justify-center items-center bg-slate-500 w-6 h-6 rounded-full p-1 m-2"
-              onClick={() => addProductUnit(id)}
-            >
-              <PlusIcon className="size-4 text-black-500 cursor-pointer" />
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="flex items-center gap-2">
         <p className="text-lg font-medium">${price}</p>
         <div>
-          <XMarkIcon
-            className="size-6 text-black-500 cursor-pointer"
-            onClick={() => context.removeProduct(id)}
-          />
+          {isShoppingCart && (
+            <XMarkIcon
+              className="size-6 text-black-500 cursor-pointer"
+              onClick={() => context.removeProduct(id)}
+            />
+          )}
         </div>
       </div>
     </div>
