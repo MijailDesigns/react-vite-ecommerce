@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCardContext = createContext();
 
@@ -29,6 +29,36 @@ export const ShoppingCardProvider = ({ children }) => {
   //Shopping cart - Order
   const [order, setOrder] = useState([]);
 
+  // Get products
+  const [items, setItems] = useState(null);
+  const [filteredItems, setFilteredItems] = useState(null);
+  // Get products by title
+  const [searchByTitle, setSearchByTitle] = useState(null);
+
+  const apiUrl = "https://fakestoreapi.com/products";
+  // const apiUrl2 = "https://api.escuelajs.co/api/v1/products";
+  useEffect(() => {
+    fetch(`${apiUrl}`)
+      .then((response) => response.json())
+      .then((data) => setItems(data));
+  }, []);
+
+  const filteredItemsByTitle = (items, searchByTitle) => {
+    return items.filter((item) =>
+      item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+    );
+  };
+
+  useEffect(() => {
+    if (searchByTitle) {
+      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
+    } else {
+      setFilteredItems(items);
+    }
+  }, [items, searchByTitle]);
+
+  console.log(filteredItems);
+
   return (
     <ShoppingCardContext.Provider
       value={{
@@ -48,6 +78,12 @@ export const ShoppingCardProvider = ({ children }) => {
         removeProduct,
         order,
         setOrder,
+        items,
+        setItems,
+        searchByTitle,
+        setSearchByTitle,
+        filteredItems,
+        setFilteredItems,
       }}
     >
       {children}
