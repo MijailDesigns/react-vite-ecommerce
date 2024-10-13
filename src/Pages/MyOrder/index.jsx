@@ -8,7 +8,6 @@ import OrderCard from "../../Components/OrderCard";
 function MyOrder() {
   const context = useContext(ShoppingCardContext);
   const { id } = useParams();
-  console.log(id);
 
   let index = id === "last" ? context.order.length - 1 : id;
 

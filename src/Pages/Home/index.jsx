@@ -10,7 +10,6 @@ function Home() {
   const { category } = useParams();
 
   useEffect(() => {
-    console.log(category);
     context.setSearchByCategory(category);
   }, [category]);
 
@@ -21,7 +20,6 @@ function Home() {
       context.searchByTitle?.length || context.setSearchByCategory
         ? context.filteredItems
         : context.items;
-    console.log(itemsToRender);
 
     if (itemsToRender?.length) {
       return itemsToRender.map((item) => <Card key={item.id} data={item} />);
