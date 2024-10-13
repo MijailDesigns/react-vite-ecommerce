@@ -35,8 +35,10 @@ export const ShoppingCardProvider = ({ children }) => {
   // Get products by title
   const [searchByTitle, setSearchByTitle] = useState(null);
 
+  // Get products by category
+  const [searchByCategory, setSearchByCategory] = useState(null);
+
   const apiUrl = "https://fakestoreapi.com/products";
-  // const apiUrl2 = "https://api.escuelajs.co/api/v1/products";
   useEffect(() => {
     fetch(`${apiUrl}`)
       .then((response) => response.json())
@@ -49,15 +51,21 @@ export const ShoppingCardProvider = ({ children }) => {
     );
   };
 
+  const filteredItemsByCategory = (items, searchByCategory) => {
+    return items.filter(
+      (item) => item.category.toLowerCase() === searchByCategory.toLowerCase()
+    );
+  };
+
   useEffect(() => {
     if (searchByTitle) {
       setFilteredItems(filteredItemsByTitle(items, searchByTitle));
+    } else if (searchByCategory) {
+      setFilteredItems(filteredItemsByCategory(items, searchByCategory));
     } else {
       setFilteredItems(items);
     }
-  }, [items, searchByTitle]);
-
-  console.log(filteredItems);
+  }, [items, searchByTitle, searchByCategory]);
 
   return (
     <ShoppingCardContext.Provider
@@ -82,8 +90,11 @@ export const ShoppingCardProvider = ({ children }) => {
         setItems,
         searchByTitle,
         setSearchByTitle,
+        filteredItemsByCategory,
         filteredItems,
         setFilteredItems,
+        searchByCategory,
+        setSearchByCategory,
       }}
     >
       {children}

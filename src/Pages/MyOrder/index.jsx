@@ -11,7 +11,6 @@ function MyOrder() {
   console.log(id);
 
   let index = id === "last" ? context.order.length - 1 : id;
-  console.log(index);
 
   return (
     <Layout>
